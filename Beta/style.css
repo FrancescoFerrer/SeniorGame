@@ -1,0 +1,151 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.tile {
+    background: rgb(23, 190, 32);
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.farm {
+    background: yellow;
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.megafarm {
+    background: red;
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.image {
+    height: 38px;
+    width: 38px;
+}
+
+.unit {
+    height: 38px;
+    width: 30px;
+    position: absolute;
+    top: 0;
+    right: -25;
+}
+
+.board {
+    max-width: 528px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    border: solid 4px black;
+}
+
+.btn {
+    border-radius:5px;
+    border: none;
+    background-color: gainsboro;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    width: 100px;
+    margin:auto;
+    font-weight:500;
+}
+
+.buttonnav {
+    max-width: 520px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    padding-top: .5px;
+}
+
+.black {
+    color: black;
+    border:solid .5px black;
+}
+
+.black:hover {
+    background-color: black;
+    color: white;
+}
+
+
+.blue {
+    color: dodgerblue;
+    border:solid .5px black;
+}
+
+.blue:hover {
+    background: #2196F3;
+    color: white;
+}
+
+
+.white {
+    color: white;
+    border:solid .5px black;
+}
+
+.white:hover {
+    background: white;
+    color: black;
+}
+
+
+.red {
+    color: red;
+    border:solid .5px black;
+}
+
+.red:hover {
+    background: #f44336;
+    color: white;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.megafarm:hover{
+    border-color:white;
+}
+.farm:hover{
+    border-color:white;
+}
+.tile:hover{
+    border-color:white;
+}

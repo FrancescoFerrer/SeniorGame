@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Damage Calculator</title>
+</head>
+
+<body>
+    <h1>Damage Calculator</h1>
+    <div>
+        <p>Attacking Unit Type: </p><input type="radio" name="attacking-unit" id="Tank">Tank
+        <input type="radio" name="attacking-unit" id="Mage">Mage
+        <input type="radio" name="attacking-unit" id="Archer">Archer
+        <input type="radio" name="attacking-unit" id="Support">Support
+        <p>Starting HP: <input type="number" id="atk-hp"></p>
+        <p>Number of Power Equipment: <input type="number" id="atk-pwr-eq"></p>
+        <p>Number of Armor Equipment: <input type="number" id="atk-amr-eq"></p>
+        <p>Counter Attack? <input type="checkbox" id="counter"></p>
+        <p>Defending Unit Type: </p><input type="radio" name="defending-unit" id="tank">Tank
+        <input type="radio" name="defending-unit" id="mage">Mage
+        <input type="radio" name="defending-unit" id="archer">Archer
+        <input type="radio" name="defending-unit" id="support">Support
+        <p>Starting HP: <input type="number" id="def-hp"></p>
+        <p>Number of Power Equipment: <input type="number" id="def-pwr-eq"></p>
+        <p>Number of Armor Equipment: <input type="number" id="def-amr-eq"></p>
+        
+        <button id="calculate">Calculate</button>
+        <button id="reset">Reset</button>
+        
+        <p>Remaining Attacker HP: <span id="rAtkHP"></span>
+        <p>Remaining Defender HP: <span id="rDefHP"></span>
+        
+        
+    </div>
+
+    <script src="damagecalc.js"></script>
+    
+</body>
+
+</html>

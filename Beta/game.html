@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Victory</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="board"></div>
+
+    <div class="buttonnav" style="margin: auto">
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn black">Black</button>
+            <div class="dropdown-content">
+                <button class="black tank btn" style="margin:auto" id="blacktank">Tank</button>
+                <button class="black mage btn" style="margin:auto" id="blackmage">Mage</button>
+                <button class="black archer btn" style="margin:auto" id="blackarcher">Archer</button>
+                <button class="black support btn" style="margin:auto" id="blacksupport">Support</button>
+            </div>
+        </div>
+
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn red">Red</button>
+            <div class="dropdown-content">
+                <button class="red tank btn" style="margin:auto" id="redtank">Tank</button>
+                <button class="red mage btn" style="margin:auto" id="redmage">Mage</button>
+                <button class="red archer btn" style="margin:auto" id="redarcher">Archer</button>
+                <button class="red support btn" style="margin:auto" id="redsupport">Support</button>
+            </div>
+        </div>
+
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn blue">Blue</button>
+            <div class="dropdown-content">
+                <button class="blue tank btn" style="margin:auto" id="bluetank">Tank</button>
+                <button class="blue mage btn" style="margin:auto" id="bluemage">Mage</button>
+                <button class="blue archer btn" style="margin:auto" id="bluearcher">Archer</button>
+                <button class="blue support btn" style="margin:auto" id="bluesupport">Support</button>
+            </div>
+        </div>
+
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn white">White</button>
+            <div class="dropdown-content">
+                <button class="white tank btn" style="margin:auto" id="whitetank">Tank</button>
+                <button class="white mage btn" style="margin:auto" id="whitemage">Mage</button>
+                <button class="white archer btn" style="margin:auto" id="whitearcher">Archer</button>
+                <button class="white support btn" style="margin:auto" id="whitesupport">Support</button>
+            </div>
+        </div>
+    </div>
+    <div class="selectedTile"
+        style=" width:100px; height: 30px; margin: 10px auto; text-align:center; padding-top: 0px; font-size:large; border: solid black 2px;"
+        id="selectedTile">Selected Tile</div>
+    <script src="game.js"></script>
+</body>
+
+</html>
