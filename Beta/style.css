@@ -17,35 +17,44 @@ html {
     position: relative;
 }
 
+.whiteCastle{
+    background-image: url('Castles/White_Castle.png');
+    background-size: cover;
+}
+
+.redCastle{
+    background-image: url('Castles/Red_Castle.png');
+    background-size: cover;
+}
+
+.blueCastle{
+    background-image: url('Castles/Blue_Castle.png');
+    background-size: cover;
+}
+
+.blackCastle{
+    background-image: url('Castles/Black_Castle.png');
+    background-size: cover;
+}
+
 .farm {
-    background: yellow;
     border: solid black 1px;
     margin: 0;
     width: 40px;
     height: 40px;
     position: relative;
+    background-image: url('farms/Farm-Basic.png');
+    background-size: cover;
 }
 
 .megafarm {
-    background: red;
     border: solid black 1px;
     margin: 0;
     width: 40px;
     height: 40px;
     position: relative;
-}
-
-.image {
-    height: 38px;
-    width: 38px;
-}
-
-.unit {
-    height: 38px;
-    width: 30px;
-    position: absolute;
-    top: 0;
-    right: -25;
+    background-image: url('farms/Farm-Mega.png');
+    background-size: cover;
 }
 
 .board {
@@ -148,4 +157,76 @@ html {
 }
 .tile:hover{
     border-color:white;
+}
+
+.blue-tank{
+    content:url('Units/Blue-Tank.png')
+}
+
+.blue-mage{
+    content:url('Units/Blue-Mage.png')
+}
+
+.blue-archer{
+    content:url('Units/Blue-Archer.png')
+}
+
+.blue-support{
+    content:url('Units/Blue-Support.png')
+}
+
+.red-tank{
+    content:url('Units/RedKnight.png')
+}
+
+.red-mage{
+    content:url('Units/RedKnight.png')
+}
+
+.red-archer{
+    content:url('Units/RedKnight.png')
+}
+
+.red-support{
+    content:url('Units/RedKnight.png')
+}
+
+.white-tank{
+    content:url('Units/WhiteKnight.png')
+}
+
+.white-mage{
+    content:url('Units/WhiteKnight.png')
+}
+
+.white-archer{
+    content:url('Units/WhiteKnight.png')
+}
+
+.white-support{
+    content:url('Units/WhiteKnight.png')
+}
+
+.black-tank{
+    content:url('Units/BlackKnight.png')
+}
+
+.black-mage{
+    content:url('Units/BlackKnight.png')
+}
+
+.black-archer{
+    content:url('Units/BlackKnight.png')
+}
+
+.black-support{
+    content:url('Units/BlackKnight.png')
+}
+
+.canMoveTo{
+    background-color: blue;
+}
+
+.canAttack{
+    background-color: red;
 }
