@@ -1,4 +1,697 @@
 var selectedTile
+var selectedUnit
+
+var game_state = [
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ],
+    [{
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        },
+        {
+            land: null,
+            unit: null
+        }
+    ]
+]
 
 class Player {
     constructor(name, color, turnOrder) {
@@ -47,26 +740,9 @@ class Unit {
         this.cost = null
     }
 
-    setImg() {
-        if (this.color === "blue") {
-            this.img = "Units/BlueKnight.png"
-        } else if (this.color === "black") {
-            this.img = "Units/BlackKnight.png"
-        } else if (this.color === "red") {
-            this.img = "Units/RedKnight.png"
-        } else if (this.color === "white") {
-            this.img = "Units/WhiteKnight.png"
-
-        }
-    }
-
     buildUnit() {
-        const unit = document.createElement("div")
-        unit.classList.add("unit")
-        unit.setAttribute("id", `${this.color}${this.type}`)
-        unit.innerHTML = `<img src="${this.img}" alt="" class="unit" />`
-        document.getElementById(`${this.position}`).appendChild(unit)
-        document.getElementById(`${this.color}${this.type}`).addEventListener('click', () => console.log(this))
+        document.getElementById(`${this.position}`).classList.add(`${this.color}-${this.type}`)
+        document.getElementById(`${this.position}`).addEventListener('click', () => console.log(this))
     }
 
     powerEq(equipment) {
@@ -84,21 +760,40 @@ class Unit {
     heal() {
         this.health = this.health + 4
     }
+
+    moveUnit(newPosition) {
+        document.getElementById(`${this.position}`).classList.remove(`${this.color}-${this.type}`)
+        document.getElementById(`${newPosition}`).classList.add(`${this.color}-${this.type}`)
+        this.position = newPosition
+    }
 }
 
 class Tank extends Unit {
-    async setStats() {
+    setStats() {
         this.power = 3
         this.armor = 4
         this.health = 15
         this.movement = [1, 2]
-        this.atkrange = 1
+        this.atkrange = [1]
         this.cost = 6
+    }
+
+    setImg() {
+        if (this.color === "blue") {
+            this.img = "Units/Blue-Tank.png"
+        } else if (this.color === "black") {
+            this.img = "Units/BlackKnight.png"
+        } else if (this.color === "red") {
+            this.img = "Units/RedKnight.png"
+        } else if (this.color === "white") {
+            this.img = "Units/WhiteKnight.png"
+
+        }
     }
 }
 
 class Mage extends Unit {
-    async setStats() {
+    setStats() {
         this.power = 9
         this.armor = 1
         this.health = 7
@@ -106,27 +801,66 @@ class Mage extends Unit {
         this.atkrange = [1, 2]
         this.cost = 6
     }
+
+    setImg() {
+        if (this.color === "blue") {
+            this.img = "Units/Blue-Mage.png"
+        } else if (this.color === "black") {
+            this.img = "Units/BlackKnight.png"
+        } else if (this.color === "red") {
+            this.img = "Units/RedKnight.png"
+        } else if (this.color === "white") {
+            this.img = "Units/WhiteKnight.png"
+
+        }
+    }
 }
 
 class Archer extends Unit {
-    async setStats() {
+    setStats() {
         this.power = 7
         this.armor = 2
         this.health = 13
         this.movement = [1, 2, 3]
-        this.atkrange = 2
+        this.atkrange = [2]
         this.cost = 8
+    }
+
+    setImg() {
+        if (this.color === "blue") {
+            this.img = "Units/Blue-Archer.png"
+        } else if (this.color === "black") {
+            this.img = "Units/BlackKnight.png"
+        } else if (this.color === "red") {
+            this.img = "Units/RedKnight.png"
+        } else if (this.color === "white") {
+            this.img = "Units/WhiteKnight.png"
+
+        }
     }
 }
 
 class Support extends Unit {
-    async setStats() {
+    setStats() {
         this.power = 1
         this.armor = 2
         this.health = 14
         this.movement = [1, 2]
-        this.atkrange = 1
+        this.atkrange = [1]
         this.cost = 8
+    }
+
+    setImg() {
+        if (this.color === "blue") {
+            this.img = "Units/Blue-Support.png"
+        } else if (this.color === "black") {
+            this.img = "Units/BlackKnight.png"
+        } else if (this.color === "red") {
+            this.img = "Units/RedKnight.png"
+        } else if (this.color === "white") {
+            this.img = "Units/WhiteKnight.png"
+
+        }
     }
 }
 
@@ -135,97 +869,173 @@ function randomNumber(min, max) {
 }
 
 function buildBoard() {
-    const farm1X = randomNumber(6, 8)
-    const farm1Y = randomNumber(1, 2)
-    const farm2X = randomNumber(6, 8)
-    const farm2Y = randomNumber(12, 13)
-    const farm3X = randomNumber(1, 2)
-    const farm3Y = randomNumber(6, 8)
-    const farm4X = randomNumber(12, 13)
-    const farm4Y = randomNumber(6, 8)
-    const farm5X = randomNumber(3, 5)
-    const farm5Y = randomNumber(9, 11)
-    const farm6X = randomNumber(3, 5)
-    const farm6Y = randomNumber(3, 5)
-    const farm7X = randomNumber(9, 11)
-    const farm7Y = randomNumber(9, 11)
-    const farm8X = randomNumber(9, 11)
-    const farm8Y = randomNumber(3, 5)
+    const farm1X = randomNumber(5, 7)
+    const farm1Y = randomNumber(0, 1)
+    const farm2X = randomNumber(5, 7)
+    const farm2Y = randomNumber(11, 12)
+    const farm3X = randomNumber(0, 1)
+    const farm3Y = randomNumber(5, 7)
+    const farm4X = randomNumber(11, 12)
+    const farm4Y = randomNumber(5, 7)
+    const farm5X = randomNumber(2, 4)
+    const farm5Y = randomNumber(8, 10)
+    const farm6X = randomNumber(2, 4)
+    const farm6Y = randomNumber(2, 4)
+    const farm7X = randomNumber(8, 10)
+    const farm7Y = randomNumber(8, 10)
+    const farm8X = randomNumber(8, 10)
+    const farm8Y = randomNumber(2, 4)
 
-    for (x = 1; x < 14; x++) {
-        for (y = 1; y < 14; y++) {
-            if (x === 7 && y === 7) {
+    for (y = 12; y > -1; y--) {
+        for (x = 0; x < 13; x++) {
+            if (x === 6 && y === 6) {
                 const tile = document.createElement("div")
-                tile.classList.add("megafarm")
+                tile.classList.add("tile", "megafarm")
                 tile.setAttribute("id", `${x}_${y}`)
                 document.querySelector(`.board`).appendChild(tile)
                 document.getElementById(`${x}_${y}`).addEventListener('click', function () {
                     document.getElementById('selectedTile').innerHTML = this.id
                     selectedTile = this.id
                 })
+                game_state[x][y].land = "megafarm"
             } else if ((x === farm1X && y === farm1Y) || (x === farm2X && y === farm2Y) || (x === farm3X && y === farm3Y) || (x === farm4X && y === farm4Y) || (x === farm5X && y === farm5Y) || (x === farm6X && y === farm6Y) || (x === farm7X && y === farm7Y) || (x === farm8X && y === farm8Y)) {
                 const tile = document.createElement("div")
-                tile.classList.add("farm")
+                tile.classList.add("tile", "farm")
                 tile.setAttribute("id", `${x}_${y}`)
                 document.querySelector(`.board`).appendChild(tile)
                 document.getElementById(`${x}_${y}`).addEventListener('click', function () {
                     document.getElementById('selectedTile').innerHTML = this.id
                     selectedTile = this.id
                 })
+                game_state[x][y].land = "farm"
             } else {
                 const tile = document.createElement("div")
                 tile.classList.add("tile")
                 tile.setAttribute("id", `${x}_${y}`)
                 document.querySelector(`.board`).appendChild(tile)
+                game_state[x][y].land = "tile"
             }
         }
     }
 }
 
 function buildCastles() {
-    const whiteCastle = document.createElement("div")
-    whiteCastle.classList.add("castle")
-    whiteCastle.innerHTML = `<img src="castles/White_Castle.png" alt="" class="image" />`
-    document.getElementById(`13_13`).appendChild(whiteCastle)
-    document.getElementById(`13_13`).addEventListener('click', function () {
+    document.getElementById(`12_12`).classList.add("whiteCastle")
+    document.getElementById(`12_12`).addEventListener('click', function () {
         document.getElementById('selectedTile').innerHTML = this.id
         selectedTile = this.id
     })
+    game_state[12][12].land = "whiteCastle"
 
-    const blueCastle = document.createElement("div")
-    blueCastle.classList.add("castle")
-    blueCastle.innerHTML = `<img src="castles/Blue_Castle.png" alt="" class="image" />`
-    document.getElementById(`13_1`).appendChild(blueCastle)
-    document.getElementById(`13_1`).addEventListener('click', function () {
+    document.getElementById(`12_0`).classList.add("blueCastle")
+    document.getElementById(`12_0`).addEventListener('click', function () {
         document.getElementById('selectedTile').innerHTML = this.id
         selectedTile = this.id
     })
+    game_state[12][0].land = "blueCastle"
 
-    const redCastle = document.createElement("div")
-    redCastle.classList.add("castle")
-    redCastle.innerHTML = `<img src="castles/Red_Castle.png" alt="" class="image" />`
-    document.getElementById(`1_13`).appendChild(redCastle)
-    document.getElementById(`1_13`).addEventListener('click', function () {
+    document.getElementById(`0_12`).classList.add("redCastle")
+    document.getElementById(`0_12`).addEventListener('click', function () {
         document.getElementById('selectedTile').innerHTML = this.id
         selectedTile = this.id
     })
+    game_state[0][12].land = "redCastle"
 
-    const blackCastle = document.createElement("div")
-    blackCastle.classList.add("castle")
-    blackCastle.innerHTML = `<img src="castles/Black_Castle.png" alt="" class="image" />`
-    document.getElementById(`1_1`).appendChild(blackCastle)
-    document.getElementById(`1_1`).addEventListener('click', function () {
+    document.getElementById(`0_0`).classList.add("blackCastle")
+    document.getElementById(`0_0`).addEventListener('click', function () {
         document.getElementById('selectedTile').innerHTML = this.id
         selectedTile = this.id
     })
+    game_state[0][0].land = "blackCastle"
 }
 
+function canMoveTo(color){
+    document.getElementById(`${x}_${y}`).classList.add("canMoveTo")
+
+    for (i = 0; i < color.movement.length; i++) {
+        if (y + color.movement[i] > -1 && y + color.movement[i] < 13) {
+            document.getElementById(`${x}_${y+color.movement[i]}`).classList.add("canMoveTo")
+        }
+        if (x + color.movement[i] > -1 && x + color.movement[i] < 13) {
+            document.getElementById(`${x+color.movement[i]}_${y}`).classList.add("canMoveTo")
+        }
+        if (y - color.movement[i] > -1 && y - color.movement[i] < 13) {
+            document.getElementById(`${x}_${y-color.movement[i]}`).classList.add("canMoveTo")
+        }
+        if (x - color.movement[i] > -1 && x - color.movement[i] < 13) {
+            document.getElementById(`${x-color.movement[i]}_${y}`).classList.add("canMoveTo")
+        }
+        if (i < color.movement.length - 1) {
+            if (y + color.movement[i] > -1 && y + color.movement[i] < 13 && x + color.movement[i] > -1 && x + color.movement[i] < 13) {
+                document.getElementById(`${x+color.movement[i]}_${y+color.movement[i]}`).classList.add("canMoveTo")
+            }
+            if (y - color.movement[i] > -1 && y - color.movement[i] < 13 && x - color.movement[i] > -1 && x - color.movement[i] < 13) {
+                document.getElementById(`${x-color.movement[i]}_${y-color.movement[i]}`).classList.add("canMoveTo")
+            }
+            if (y + color.movement[i] > -1 && y + color.movement[i] < 13 && x - color.movement[i] > -1 && x - color.movement[i] < 13) {
+                document.getElementById(`${x-color.movement[i]}_${y+color.movement[i]}`).classList.add("canMoveTo")
+            }
+            if (y - color.movement[i] > -1 && y - color.movement[i] < 13 && x + color.movement[i] > -1 && x + color.movement[i] < 13) {
+                document.getElementById(`${x+color.movement[i]}_${y-color.movement[i]}`).classList.add("canMoveTo")
+            }
+        }
+    }
+}
+
+function canAttack(color){
+    for (i = 0; i < color.atkrange.length; i++) {
+        if (y + color.movement[color.movement.length - 1] + color.atkrange[i] > -1 && y + color.movement[color.movement.length - 1] + color.atkrange[i] < 13) {
+            document.getElementById(`${x}_${y+color.movement[color.movement.length -1] + color.atkrange[i]}`).classList.add("canAttack")
+        }
+        if (x + color.movement[color.movement.length - 1] + color.atkrange[i] > -1 && x + color.movement[color.movement.length - 1] + color.atkrange[i] < 13) {
+            document.getElementById(`${x+color.movement[color.movement.length -1] + color.atkrange[i]}_${y}`).classList.add("canAttack")
+        }
+        if (y - color.movement[color.movement.length - 1] - color.atkrange[i] > -1 && y - color.movement[color.movement.length - 1] - color.atkrange[i] < 13) {
+            document.getElementById(`${x}_${y-color.movement[color.movement.length -1] - color.atkrange[i]}`).classList.add("canAttack")
+        }
+        if (x - color.movement[color.movement.length - 1] - color.atkrange[i] > -1 && x - color.movement[color.movement.length - 1] - color.atkrange[i] < 13) {
+            document.getElementById(`${x-color.movement[color.movement.length -1] - color.atkrange[i]}_${y}`).classList.add("canAttack")
+        }
+        // if (i < color.movement.length - 1) {
+            if (y + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && y + color.movement[color.movement.length - 2] + color.atkrange[i] < 13 && x + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && x + color.movement[color.movement.length - 2] + color.atkrange[i] < 13) {
+                document.getElementById(`${x+color.movement[color.movement.length - 2]}_${y+color.movement[color.movement.length - 2] + color.atkrange[i]}`).classList.add("canAttack")
+            }
+            if (y + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && y + color.movement[color.movement.length - 2] + color.atkrange[i] < 13 && x + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && x + color.movement[color.movement.length - 2] + color.atkrange[i] < 13) {
+                document.getElementById(`${x+color.movement[color.movement.length - 2] + color.atkrange[i]}_${y+color.movement[color.movement.length - 2]}`).classList.add("canAttack")
+            }
+            if (y - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && y - color.movement[color.movement.length - 2] - color.atkrange[i] < 13 && x - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && x - color.movement[color.movement.length - 2] - color.atkrange[i] < 13) {
+                document.getElementById(`${x-color.movement[color.movement.length - 2]}_${y-color.movement[color.movement.length - 2] - color.atkrange[i]}`).classList.add("canAttack")
+            }
+            if (y - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && y - color.movement[color.movement.length - 2] - color.atkrange[i] < 13 && x - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && x - color.movement[color.movement.length - 2] - color.atkrange[i] < 13) {
+                document.getElementById(`${x-color.movement[color.movement.length - 2] - color.atkrange[i]}_${y-color.movement[color.movement.length - 2]}`).classList.add("canAttack")
+            }
+            if (y + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && y + color.movement[color.movement.length - 2] + color.atkrange[i] < 13 && x - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && x - color.movement[color.movement.length - 2] - color.atkrange[i] < 13) {
+                document.getElementById(`${x-color.movement[color.movement.length - 2]}_${y+color.movement[color.movement.length - 2] + color.atkrange[i]}`).classList.add("canAttack")
+            }
+            if (y + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && y + color.movement[color.movement.length - 2] + color.atkrange[i] < 13 && x - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && x - color.movement[color.movement.length - 2] - color.atkrange[i] < 13) {
+                document.getElementById(`${x-color.movement[color.movement.length - 2] - color.atkrange[i]}_${y+color.movement[color.movement.length - 2]}`).classList.add("canAttack")
+            }
+            if (y - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && y - color.movement[color.movement.length - 2] - color.atkrange[i] < 13 && x + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && x + color.movement[color.movement.length - 2] + color.atkrange[i] < 13) {
+                document.getElementById(`${x+color.movement[color.movement.length - 2]}_${y-color.movement[color.movement.length - 2] - color.atkrange[i]}`).classList.add("canAttack")
+            }
+            if (y - color.movement[color.movement.length - 2] - color.atkrange[i] > -1 && y - color.movement[color.movement.length - 2] - color.atkrange[i] < 13 && x + color.movement[color.movement.length - 2] + color.atkrange[i] > -1 && x + color.movement[color.movement.length - 2] + color.atkrange[i] < 13) {
+                document.getElementById(`${x+color.movement[color.movement.length - 2] + color.atkrange[i]}_${y-color.movement[color.movement.length - 2]}`).classList.add("canAttack")
+            }
+        }
+}
+
+function canMoveToAndAttack(color){
+    
+}
 function blackButtons() {
     document.getElementById("blacktank").addEventListener("click", function () {
         let black = new Tank("black", "tank", selectedTile)
         black.setImg()
         black.buildUnit()
         black.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = black
     })
 
     document.getElementById("blackmage").addEventListener("click", function () {
@@ -233,6 +1043,9 @@ function blackButtons() {
         black.setImg()
         black.buildUnit()
         black.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = black
     })
 
     document.getElementById("blackarcher").addEventListener("click", function () {
@@ -240,6 +1053,9 @@ function blackButtons() {
         black.setImg()
         black.buildUnit()
         black.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = black
     })
 
     document.getElementById("blacksupport").addEventListener("click", function () {
@@ -247,6 +1063,9 @@ function blackButtons() {
         black.setImg()
         black.buildUnit()
         black.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = black
     })
 }
 
@@ -256,6 +1075,9 @@ function redButtons() {
         red.setImg()
         red.buildUnit()
         red.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = red
     })
 
     document.getElementById("redmage").addEventListener("click", function () {
@@ -263,6 +1085,9 @@ function redButtons() {
         red.setImg()
         red.buildUnit()
         red.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = red
     })
 
     document.getElementById("redarcher").addEventListener("click", function () {
@@ -270,6 +1095,9 @@ function redButtons() {
         red.setImg()
         red.buildUnit()
         red.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = red
     })
 
     document.getElementById("redsupport").addEventListener("click", function () {
@@ -277,6 +1105,9 @@ function redButtons() {
         red.setImg()
         red.buildUnit()
         red.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = red
     })
 }
 
@@ -286,6 +1117,13 @@ function blueButtons() {
         blue.setImg()
         blue.buildUnit()
         blue.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = blue
+        document.getElementById(`${blue.position}`).addEventListener("click", function () {
+            canMoveTo(blue)
+            canAttack(blue)
+        })
     })
 
     document.getElementById("bluemage").addEventListener("click", function () {
@@ -293,6 +1131,13 @@ function blueButtons() {
         blue.setImg()
         blue.buildUnit()
         blue.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = blue
+        document.getElementById(`${blue.position}`).addEventListener("click", function () {
+            canMoveTo(blue)
+            canAttack(blue)
+        })
     })
 
     document.getElementById("bluearcher").addEventListener("click", function () {
@@ -300,6 +1145,13 @@ function blueButtons() {
         blue.setImg()
         blue.buildUnit()
         blue.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = blue
+        document.getElementById(`${blue.position}`).addEventListener("click", function () {
+            canMoveTo(blue)
+            canAttack(blue)
+        })
     })
 
     document.getElementById("bluesupport").addEventListener("click", function () {
@@ -307,6 +1159,13 @@ function blueButtons() {
         blue.setImg()
         blue.buildUnit()
         blue.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = blue
+        document.getElementById(`${blue.position}`).addEventListener("click", function () {
+            canMoveTo(blue)
+            canAttack(blue)
+        })
     })
 }
 
@@ -316,6 +1175,9 @@ function whiteButtons() {
         white.setImg()
         white.buildUnit()
         white.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = white
     })
 
     document.getElementById("whitemage").addEventListener("click", function () {
@@ -323,6 +1185,9 @@ function whiteButtons() {
         white.setImg()
         white.buildUnit()
         white.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = white
     })
 
     document.getElementById("whitearcher").addEventListener("click", function () {
@@ -330,6 +1195,9 @@ function whiteButtons() {
         white.setImg()
         white.buildUnit()
         white.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = white
     })
 
     document.getElementById("whitesupport").addEventListener("click", function () {
@@ -337,6 +1205,9 @@ function whiteButtons() {
         white.setImg()
         white.buildUnit()
         white.setStats()
+        x = parseInt(selectedTile.split("_")[0])
+        y = parseInt(selectedTile.split("_")[1])
+        game_state[x][y].unit = white
     })
 }
 
@@ -347,7 +1218,14 @@ function setButtons() {
     whiteButtons()
 }
 
+function addPlayers() {
+    bluePlayer = new Player(null, "blue", null)
+    redPlayer = new Player(null, "red", null)
+    blackPlayer = new Player(null, "black", null)
+    whitePlayer = new Player(null, "white", null)
+}
+
+addPlayers()
 buildBoard()
 buildCastles()
 setButtons()
-
