@@ -2,6 +2,7 @@
 var selectedTile
 var selectedUnit
 
+var fullTurnOrder = []
 var farmGold = 0
 //Empty array (matrix) of the game_state
 var game_state = []
@@ -56,8 +57,14 @@ class Player {
     }
 
     //Method to end a player's turn
-    endTurn() {
+    endTurn(megafarm,farms,numCastles) {
         this.turn = false
+        if(this.turnOrder < fullTurnOrder.length - 1){
+        fullTurnOrder[this.turnOrder + 1].startTurn(megafarm,farms,numCastles)
+        }
+        else{
+            fullTurnOrder[0].startTurn(megafarm,farms,numCastles)
+        }
     }
 }
 
@@ -393,7 +400,6 @@ function stepsFunc(x_y) {
 }
 
 function canMoveTo(unit, position) {
-
     //Makes adjacent tiles blue, and saves them to a seperate array
     stepsFunc(position)
     moveableTiles = canMoveToTiles
@@ -411,30 +417,44 @@ function canMoveTo(unit, position) {
         stepsFunc(moveableTiles[2])
         moveableTilesFour = canMoveToTiles
     }
+    else{
+        moveableTilesFour = []
+    }
 
     //Uses orignal array to set adjacent tiles blue, then saves new values
     if (moveableTiles.length > 3) {
         stepsFunc(moveableTiles[3])
         moveableTilesFive = canMoveToTiles
     }
+    else{
+        moveableTilesFive = []
+    }
 
     //If the unit can move 3 spaces, uses the previously saved arrays to set the remaining tiles that are in moving distance to blue
     if (unit.movement.length > 2) {
-        for (i = 0; i < moveableTilesTwo.length; i++) {
+        if(moveableTilesTwo){
+            for (i = 0; i < moveableTilesTwo.length; i++) {
             stepsFunc(moveableTilesTwo[i])
         }
+    }
 
+        if(moveableTilesThree.length > 0){
         for (i = 0; i < moveableTilesThree.length; i++) {
             stepsFunc(moveableTilesThree[i])
         }
+    }
 
+        if(moveableTilesFour.length > 0){
         for (i = 0; i < moveableTilesFour.length; i++) {
             stepsFunc(moveableTilesFour[i])
         }
+    }
 
+        if(moveableTilesFive.length > 0){
         for (i = 0; i < moveableTilesFive.length; i++) {
             stepsFunc(moveableTilesFive[i])
         }
+    }
 
     }
 
@@ -1026,10 +1046,12 @@ function setButtons() {
 
 //Adds a player for each color
 function addPlayers() {
-    bluePlayer = new Player(null, "blue", null)
-    redPlayer = new Player(null, "red", null)
-    blackPlayer = new Player(null, "black", null)
-    whitePlayer = new Player(null, "white", null)
+    blackPlayer = new Player(null, "black", 0)
+    redPlayer = new Player(null, "red", 1)
+    bluePlayer = new Player(null, "blue", 2)
+    whitePlayer = new Player(null, "white", 3)
+
+    fullTurnOrder = [blackPlayer,redPlayer,bluePlayer,whitePlayer]
 
     //Sets gold display for each player
     document.getElementById('blackGold').innerHTML = `${blackPlayer.gold} Gold`
