@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body style="background-color:gray;">
+
     <div class="board"></div>
 
     <div class="buttonnav" style="margin: auto">
@@ -53,10 +54,29 @@
             </div>
         </div>
     </div>
-    <div class="selectedTile"
-        style=" width:100px; height: 30px; margin: 10px auto; text-align:center; padding-top: 0px; font-size:large; border: solid black 2px;"
+    <div class="goldDisplay" style="margin:auto;">
+            <div class="blackGold"
+            style=" width:100px; height: 30px; margin: 10px auto; text-align:center; padding-top: 0px; font-size:large; border: solid black 2px; color:gold"
+            id="blackGold">Black Gold</div>
+            <div class="redGold"
+            style=" width:100px; height: 30px; margin: 10px auto; text-align:center; padding-top: 0px; font-size:large; border: solid red 2px; color:gold;"
+            id="redGold">Red Gold</div>
+            <div class="blueGold"
+            style=" width:100px; height: 30px; margin: 10px auto; text-align:center; padding-top: 0px; font-size:large; border: solid blue 2px; color:gold; "
+            id="blueGold">Blue Gold</div>
+            <div class="whiteGold"
+            style=" width:100px; height: 30px; margin: 10px auto; text-align:center; padding-top: 0px; font-size:large; border: solid white 2px; color:gold;"
+            id="whiteGold">White Gold</div>
+    </div>
+    <div class="tileDisplay">
+    <p>Spawn Tile:</p><div class="spawnTile"
+        style=" width:100px; height: 30px; margin:auto; text-align:center; padding-top: 0px; font-size:large; border: solid black 2px;"
+        id="spawnTile">Spawn Tile</div>
+    <p>Selected Tile:</p><div class="selectedTile"
+        style=" width:100px; height: 30px; margin:auto; text-align:center; padding-top: 0px; font-size:large; border: solid black 2px;"
         id="selectedTile">Selected Tile</div>
     <script src="game.js"></script>
+    </div>
 </body>
 
 </html>

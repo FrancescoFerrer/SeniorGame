@@ -8,6 +8,14 @@ html {
     box-sizing: inherit;
 }
 
+.board {
+    max-width: 528px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    border: solid 4px black;
+}
+
 .tile {
     background: rgb(23, 190, 32);
     border: solid black 1px;
@@ -15,6 +23,38 @@ html {
     width: 40px;
     height: 40px;
     position: relative;
+}
+
+.tile:hover{
+    border-color:white;
+}
+
+.farm {
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('farms/Farm-Basic.png');
+    background-size: cover;
+}
+
+.farm:hover{
+    border-color:white;
+}
+
+.megafarm {
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('farms/Farm-Mega.png');
+    background-size: cover;
+}
+
+.megafarm:hover{
+    border-color:white;
 }
 
 .whiteCastle{
@@ -37,34 +77,6 @@ html {
     background-size: cover;
 }
 
-.farm {
-    border: solid black 1px;
-    margin: 0;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    background-image: url('farms/Farm-Basic.png');
-    background-size: cover;
-}
-
-.megafarm {
-    border: solid black 1px;
-    margin: 0;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    background-image: url('farms/Farm-Mega.png');
-    background-size: cover;
-}
-
-.board {
-    max-width: 528px;
-    display: flex;
-    flex-wrap: wrap;
-    margin: auto;
-    border: solid 4px black;
-}
-
 .btn {
     border-radius:5px;
     border: none;
@@ -85,6 +97,23 @@ html {
     padding-top: .5px;
 }
 
+.goldDisplay {
+    max-width: 520px;
+    height:40px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.tileDisplay {
+    max-width: 520px;
+    height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+/* Black unit buttons */
 .black {
     color: black;
     border:solid .5px black;
@@ -95,7 +124,7 @@ html {
     color: white;
 }
 
-
+/* Blue unit buttons */
 .blue {
     color: dodgerblue;
     border:solid .5px black;
@@ -106,7 +135,7 @@ html {
     color: white;
 }
 
-
+/* White unit buttons */
 .white {
     color: white;
     border:solid .5px black;
@@ -117,7 +146,7 @@ html {
     color: black;
 }
 
-
+/* Red unit buttons */
 .red {
     color: red;
     border:solid .5px black;
@@ -133,13 +162,11 @@ html {
     display: inline-block;
 }
 
-
 .dropdown-content {
     display: none;
     position: absolute;
     
 }
-
 
 .dropdown:hover .dropdown-content {
     display: block;
@@ -147,16 +174,6 @@ html {
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
-}
-
-.megafarm:hover{
-    border-color:white;
-}
-.farm:hover{
-    border-color:white;
-}
-.tile:hover{
-    border-color:white;
 }
 
 .blue-tank{
@@ -176,51 +193,51 @@ html {
 }
 
 .red-tank{
-    content:url('Units/RedKnight.png')
+    content:url('Units/Red-Tank.png')
 }
 
 .red-mage{
-    content:url('Units/RedKnight.png')
+    content:url('Units/Red-Mage.png')
 }
 
 .red-archer{
-    content:url('Units/RedKnight.png')
+    content:url('Units/Red-Archer.png')
 }
 
 .red-support{
-    content:url('Units/RedKnight.png')
+    content:url('Units/Red-Support.png')
 }
 
 .white-tank{
-    content:url('Units/WhiteKnight.png')
+    content:url('Units/White-Tank.png')
 }
 
 .white-mage{
-    content:url('Units/WhiteKnight.png')
+    content:url('Units/White-Mage.png')
 }
 
 .white-archer{
-    content:url('Units/WhiteKnight.png')
+    content:url('Units/White-Archer.png')
 }
 
 .white-support{
-    content:url('Units/WhiteKnight.png')
+    content:url('Units/White-Support.png')
 }
 
 .black-tank{
-    content:url('Units/BlackKnight.png')
+    content:url('Units/Black-Tank.png')
 }
 
 .black-mage{
-    content:url('Units/BlackKnight.png')
+    content:url('Units/Black-Mage.png')
 }
 
 .black-archer{
-    content:url('Units/BlackKnight.png')
+    content:url('Units/Black-Archer.png')
 }
 
 .black-support{
-    content:url('Units/BlackKnight.png')
+    content:url('Units/Black-Support.png')
 }
 
 .canMoveTo{
@@ -229,4 +246,8 @@ html {
 
 .canAttack{
     background-color: red;
+}
+
+.selected{
+    border-color: yellow;
 }
