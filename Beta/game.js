@@ -482,6 +482,20 @@ function canMoveTo(unit, position) {
 //     }
 // }
 
+function unitListener() {
+    if (player.turn === true) {
+        canMoveTo(unit, unit.position)
+        document.getElementById(`${unit.position}`).classList.add("selected")
+    } else {
+        console.log(`Player: ${unit.color}`)
+        console.log(`Unit Type: ${unit.type}`)
+        console.log(`Health: ${unit.health}`)
+        console.log(`Power: ${unit.power}`)
+        console.log(`Armor: ${unit.armor}`)
+    }
+    document.getElementById(`${unit.position}`).removeEventListener("click", unitListener)
+}
+
 function blackButtons() {
     //Adds click listener for black tank button
     document.getElementById("blacktank").addEventListener("click", function () {
@@ -502,18 +516,9 @@ function blackButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = black
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${black.position}`).addEventListener("click", function () {
-                if (blackPlayer.turn === true) {
-                    canMoveTo(black, black.position)
-                    document.getElementById(`${black.position}`).classList.add("selected")
-                } else {
-                    console.log(`Player: Black`)
-                    console.log(`Unit Type: Tank`)
-                    console.log(`Health: ${black.health}`)
-                    console.log(`Power: ${black.power}`)
-                    console.log(`Armor: ${black.armor}`)
-                }
-            })
+            player = blackPlayer
+            unit = black
+            document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blackGold`).innerHTML = `${blackPlayer.gold} Gold`
@@ -543,18 +548,9 @@ function blackButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = black
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${black.position}`).addEventListener("click", function () {
-                if (blackPlayer.turn === true) {
-                    canMoveTo(black, black.position)
-                    document.getElementById(`${black.position}`).classList.add("selected")
-                } else {
-                    console.log(`Player: Black`)
-                    console.log(`Unit Type: Mage`)
-                    console.log(`Health: ${black.health}`)
-                    console.log(`Power: ${black.power}`)
-                    console.log(`Armor: ${black.armor}`)
-                }
-            })
+            player = blackPlayer
+            unit = black
+            document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blackGold`).innerHTML = `${blackPlayer.gold} Gold`
@@ -584,18 +580,9 @@ function blackButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = black
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${black.position}`).addEventListener("click", function () {
-                if (blackPlayer.turn === true) {
-                    canMoveTo(black, black.position)
-                    document.getElementById(`${black.position}`).classList.add("selected")
-                } else {
-                    console.log(`Player: Black`)
-                    console.log(`Unit Type: Archer`)
-                    console.log(`Health: ${black.health}`)
-                    console.log(`Power: ${black.power}`)
-                    console.log(`Armor: ${black.armor}`)
-                }
-            })
+            player = blackPlayer
+            unit = black
+            document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blackGold`).innerHTML = `${blackPlayer.gold} Gold`
@@ -625,18 +612,9 @@ function blackButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = black
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${black.position}`).addEventListener("click", function () {
-                if (blackPlayer.turn === true) {
-                    canMoveTo(black, black.position)
-                    document.getElementById(`${black.position}`).classList.add("selected")
-                } else {
-                    console.log(`Player: Black`)
-                    console.log(`Unit Type: Support`)
-                    console.log(`Health: ${black.health}`)
-                    console.log(`Power: ${black.power}`)
-                    console.log(`Armor: ${black.armor}`)
-                }
-            })
+            player = blackPlayer
+            unit = black
+            document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blackGold`).innerHTML = `${blackPlayer.gold} Gold`
@@ -668,11 +646,9 @@ function redButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = red
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${red.position}`).addEventListener("click", function () {
-                canMoveTo(red, red.position)
-                document.getElementById(`${red.position}`).classList.add("selected")
-
-            })
+            player = redPlayer
+            unit = red
+            document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`redGold`).innerHTML = `${redPlayer.gold} Gold`
@@ -702,11 +678,9 @@ function redButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = red
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${red.position}`).addEventListener("click", function () {
-                canMoveTo(red, red.position)
-                document.getElementById(`${red.position}`).classList.add("selected")
-
-            })
+            player = redPlayer
+            unit = red
+            document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`redGold`).innerHTML = `${redPlayer.gold} Gold`
@@ -736,11 +710,9 @@ function redButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = red
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${red.position}`).addEventListener("click", function () {
-                canMoveTo(red, red.position)
-                document.getElementById(`${red.position}`).classList.add("selected")
-
-            })
+            player = redPlayer
+            unit = red
+            document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`redGold`).innerHTML = `${redPlayer.gold} Gold`
@@ -770,11 +742,9 @@ function redButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = red
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${red.position}`).addEventListener("click", function () {
-                canMoveTo(red, red.position)
-                document.getElementById(`${red.position}`).classList.add("selected")
-
-            })
+            player = redPlayer
+            unit = red
+            document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`redGold`).innerHTML = `${redPlayer.gold} Gold`
@@ -806,11 +776,9 @@ function blueButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = blue
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${blue.position}`).addEventListener("click", function () {
-                canMoveTo(blue, blue.position)
-                document.getElementById(`${blue.position}`).classList.add("selected")
-
-            })
+            player = bluePlayer
+            unit = blue
+            document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blueGold`).innerHTML = `${bluePlayer.gold} Gold`
@@ -840,11 +808,9 @@ function blueButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = blue
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${blue.position}`).addEventListener("click", function () {
-                canMoveTo(blue, blue.position)
-                document.getElementById(`${blue.position}`).classList.add("selected")
-
-            })
+            player = bluePlayer
+            unit = blue
+            document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blueGold`).innerHTML = `${bluePlayer.gold} Gold`
@@ -874,11 +840,9 @@ function blueButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = blue
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${blue.position}`).addEventListener("click", function () {
-                canMoveTo(blue, blue.position)
-                document.getElementById(`${blue.position}`).classList.add("selected")
-
-            })
+            player = bluePlayer
+            unit = blue
+            document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blueGold`).innerHTML = `${bluePlayer.gold} Gold`
@@ -908,11 +872,9 @@ function blueButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = blue
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${blue.position}`).addEventListener("click", function () {
-                canMoveTo(blue, blue.position)
-                document.getElementById(`${blue.position}`).classList.add("selected")
-
-            })
+            player = bluePlayer
+            unit = blue
+            document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`blueGold`).innerHTML = `${bluePlayer.gold} Gold`
@@ -944,11 +906,9 @@ function whiteButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = white
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${white.position}`).addEventListener("click", function () {
-                canMoveTo(white, white.position)
-                document.getElementById(`${white.position}`).classList.add("selected")
-
-            })
+            player = whitePlayer
+            unit = white
+            document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`whiteGold`).innerHTML = `${whitePlayer.gold} Gold`
@@ -978,11 +938,9 @@ function whiteButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = white
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${white.position}`).addEventListener("click", function () {
-                canMoveTo(white, white.position)
-                document.getElementById(`${white.position}`).classList.add("selected")
-
-            })
+            player = whitePlayer
+            unit = white
+            document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`whiteGold`).innerHTML = `${whitePlayer.gold} Gold`
@@ -1012,11 +970,9 @@ function whiteButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = white
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${white.position}`).addEventListener("click", function () {
-                canMoveTo(white, white.position)
-                document.getElementById(`${white.position}`).classList.add("selected")
-
-            })
+            player = whitePlayer
+            unit = white
+            document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`whiteGold`).innerHTML = `${whitePlayer.gold} Gold`
@@ -1046,11 +1002,9 @@ function whiteButtons() {
             y = parseInt(spawnTile.split("_")[1])
             game_state[x][y].unit = white
             //Adds listener for available movement on click and shows selected tile
-            document.getElementById(`${white.position}`).addEventListener("click", function () {
-                canMoveTo(white, white.position)
-                document.getElementById(`${white.position}`).classList.add("selected")
-
-            })
+            player = whitePlayer
+            unit = white
+            document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
             document.getElementById(`whiteGold`).innerHTML = `${whitePlayer.gold} Gold`
