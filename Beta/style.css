@@ -251,3 +251,13 @@ html {
 .selected{
     border-color: yellow;
 }
+
+.endTurn{
+    color:white;
+    background-color:black;
+}
+
+.endTurn:hover{
+    color:black;
+    background-color:white;
+}

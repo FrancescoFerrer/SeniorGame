@@ -3,14 +3,18 @@ var selectedTile
 var selectedUnit
 
 var fullTurnOrder = []
+var turnPlayer 
 var farmGold = 0
 //Empty array (matrix) of the game_state
 var game_state = []
 
-//Empty Tile Object
-var tile = {
-    land: null,
-    unit: null
+//Empty Tile
+class Tile {
+    constructor(land,unit,color){
+        this.land = land
+        this.unit = unit
+        this.color = color
+    }
 }
 
 //Function for generating tile objects in matrix
@@ -18,7 +22,7 @@ function game_state_start(size) {
     for (i = 0; i < size; i++) {
         game_state.push([]);
         for (j = 0; j < size; j++) {
-            game_state[i].push(tile)
+            game_state[i].push(new Tile)
         }
     }
 }
@@ -30,40 +34,83 @@ class Player {
         this.color = color
         this.castleHealth = 20
         this.gold = 30
-        this.units = []
+        this.farms = []
+        this.megafarm = false
+        this.castles = 1
         this.turn = false
+        this.turnNumber = 0
         this.turnOrder = turnOrder
     }
 
     //Method to calculate player's gold during upkeep
-    upkeep(megafarm, farms, numCastles) {
-        for (i = 0; i < farms; i++) {
+    upkeep() {
+        for (i = 0; i < this.farms.length; i++) {
             farmGold = farmGold + randomNumber(2, 4)
         }
-        if (megafarm === true) {
-            this.gold = this.gold + numCastles + farmGold + 5
+        if (this.megafarm === true) {
+            this.gold = this.gold + this.castles + farmGold + 5
         } else {
-            this.gold = this.gold + numCastles + farmGold
+            this.gold = this.gold + this.castles + farmGold
         }
         document.getElementById(`${this.color}Gold`).innerHTML = `${this.gold} Gold`
     }
 
     //Method to start turn and trigger upkeep method
-    startTurn(megafarm, farms, numCastles) {
+    startTurn() {
         farmGold = 0
+        turnPlayer = this
         this.turn = true
-        this.upkeep(megafarm, farms, numCastles)
-
+        for (y = 12; y > -1; y--) {
+            for (x = 0; x < 13; x++) {
+                if(game_state[x][y].land === "farm" && game_state[x][y].color === this.color){
+                    this.farms.push(`${x}_${y}`)
+                }
+                if(game_state[x][y].land === "megafarm" && game_state[x][y].color === this.color){
+                    this.megafarm = true
+                }
+                else if(game_state[x][y].land === "megafarm" && game_state[x][y].color !== this.color){
+                    this.megafarm = false
+                }
+            }
+        }
+        if(this.turnNumber > 0){
+            this.upkeep()
+        }
+        this.turnNumber ++
+        for (y = 12; y > -1; y--) {
+            for (x = 0; x < 13; x++) {
+                if(game_state[x][y].unit && game_state[x][y].unit.color === this.color){
+                    unit = game_state[x][y].unit
+                    player = this
+                    console.log(unit)
+                    document.getElementById(`${x}_${y}`).addEventListener("click", unitListener)
+                }
+            }
+        }
     }
 
     //Method to end a player's turn
-    endTurn(megafarm,farms,numCastles) {
+    endTurn() {
+        for (y = 12; y > -1; y--) {
+            for (x = 0; x < 13; x++) {
+                document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+
+                if((game_state[x][y].unit && game_state[x][y].land === "farm") || (game_state[x][y].unit && game_state[x][y].land === "megafarm")){
+                    game_state[x][y].color = game_state[x][y].unit.color
+                }
+                else if((!game_state[x][y].unit && game_state[x][y].land === "farm") || (!game_state[x][y].unit && game_state[x][y].land === "megafarm")){
+                    game_state[x][y].color = null
+                }
+
+            }
+        }
+        this.farms = []
         this.turn = false
         if(this.turnOrder < fullTurnOrder.length - 1){
-        fullTurnOrder[this.turnOrder + 1].startTurn(megafarm,farms,numCastles)
+        fullTurnOrder[this.turnOrder + 1].startTurn()
         }
         else{
-            fullTurnOrder[0].startTurn(megafarm,farms,numCastles)
+            fullTurnOrder[0].startTurn()
         }
     }
 }
@@ -111,8 +158,20 @@ class Unit {
     //Moves this unit to input position
     moveUnit(newPosition) {
         document.getElementById(`${this.position}`).classList.remove(`${this.color}-${this.type}`)
+        x = parseInt(this.position.split("_")[0])
+        y = parseInt(this.position.split("_")[1])
+        if(game_state[x][y].land === "tile"){
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,null,null))
+        }
+        else{
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,null,this.color))
+        }
+
         document.getElementById(`${newPosition}`).classList.add(`${this.color}-${this.type}`)
         this.position = newPosition
+        x = parseInt(newPosition.split("_")[0])
+        y = parseInt(newPosition.split("_")[1])
+        game_state[x].splice(y,1,new Tile (game_state[x][y].land,this,this.color))
     }
 }
 
@@ -296,7 +355,7 @@ function buildBoard() {
                 //Adds remaining listeners
                 addTileListeners()
                 //Sets megafarm value to tile object in matrix
-                game_state[x][y].land = "megafarm"
+                game_state[x].splice(y,1,new Tile ("megafarm",null,null))
             } else if ((x === farm1X && y === farm1Y) || (x === farm2X && y === farm2Y) || (x === farm3X && y === farm3Y) || (x === farm4X && y === farm4Y) || (x === farm5X && y === farm5Y) || (x === farm6X && y === farm6Y) || (x === farm7X && y === farm7Y) || (x === farm8X && y === farm8Y)) {
                 //Adds tile and sets farm CSS class to all tiles at farm coordinates
                 const tile = document.createElement("div")
@@ -311,7 +370,7 @@ function buildBoard() {
                 //Adds remaining listeners
                 addTileListeners()
                 //Sets farm value to tile object in matrix
-                game_state[x][y].land = "farm"
+                game_state[x].splice(y,1,new Tile ("farm",null,null))
             } else {
                 //Adds tile and sets basic tile CSS class to all other tiles
                 const tile = document.createElement("div")
@@ -319,7 +378,7 @@ function buildBoard() {
                 tile.setAttribute("id", `${x}_${y}`)
                 document.querySelector(`.board`).appendChild(tile)
                 //Sets tile value to tile object in matrix
-                game_state[x][y].land = "tile"
+                game_state[x].splice(y,1,new Tile ("tile",null,null))
                 //Adds listeners
                 addTileListeners()
             }
@@ -336,7 +395,7 @@ function buildCastles() {
         document.getElementById('selectedTile').innerHTML = this.id
         selectedTile = this.id
     })
-    game_state[12][12].land = "whiteCastle"
+    game_state[12].splice(12,1,new Tile ("whiteCastle",null,"white"))
 
     //Sets blueCastle CSS class to tile, adds select tile listener, and sets blueCastle value to tile object
     document.getElementById(`12_0`).classList.add("blueCastle")
@@ -346,7 +405,7 @@ function buildCastles() {
         document.getElementById('spawnTile').innerHTML = this.id
         spawnTile = this.id
     })
-    game_state[12][0].land = "blueCastle"
+    game_state[12].splice(0,1,new Tile ("blueCastle",null,"blue")) 
 
     //Sets redCastle CSS class to tile, adds select tile listener, and sets redCastle value to tile object
     document.getElementById(`0_12`).classList.add("redCastle")
@@ -356,7 +415,7 @@ function buildCastles() {
         document.getElementById('spawnTile').innerHTML = this.id
         spawnTile = this.id
     })
-    game_state[0][12].land = "redCastle"
+    game_state[0].splice(12,1,new Tile ("redCastle",null,"red"))
 
     //Sets blackCastle CSS class to tile, adds select tile listener, and sets blackCastle value to tile object
     document.getElementById(`0_0`).classList.add("blackCastle")
@@ -366,7 +425,8 @@ function buildCastles() {
         document.getElementById('spawnTile').innerHTML = this.id
         spawnTile = this.id
     })
-    game_state[0][0].land = "blackCastle"
+    game_state[0].splice(0,1,new Tile ("blackCastle",null,"black"))
+
 }
 
 let canMoveToTiles
@@ -378,18 +438,18 @@ function stepsFunc(x_y) {
 
     //Empty array for tiles that can be moved to
     canMoveToTiles = []
-
+    canMoveToTiles.push(`${x}_${y}`)
     //Adds adjacent tiles to previous array if they are on the board
-    if (x + 1 > -1 && x + 1 < 13) {
+    if (x + 1 > -1 && x + 1 < 13 && !game_state[x+1][y].unit) {
         canMoveToTiles.push(`${x+1}_${y}`)
     }
-    if (x - 1 > -1 && x - 1 < 13) {
+    if (x - 1 > -1 && x - 1 < 13 && !game_state[x-1][y].unit) {
         canMoveToTiles.push(`${x-1}_${y}`)
     }
-    if (y + 1 > -1 && y + 1 < 13) {
+    if (y + 1 > -1 && y + 1 < 13 && !game_state[x][y+1].unit) {
         canMoveToTiles.push(`${x}_${y+1}`)
     }
-    if (y - 1 > -1 && y - 1 < 13) {
+    if (y - 1 > -1 && y - 1 < 13 && !game_state[x][y-1].unit) {
         canMoveToTiles.push(`${x}_${y-1}`)
     }
 
@@ -506,13 +566,7 @@ function unitListener() {
     if (player.turn === true) {
         canMoveTo(unit, unit.position)
         document.getElementById(`${unit.position}`).classList.add("selected")
-    } else {
-        console.log(`Player: ${unit.color}`)
-        console.log(`Unit Type: ${unit.type}`)
-        console.log(`Health: ${unit.health}`)
-        console.log(`Power: ${unit.power}`)
-        console.log(`Armor: ${unit.armor}`)
-    }
+    } 
     document.getElementById(`${unit.position}`).removeEventListener("click", unitListener)
 }
 
@@ -520,7 +574,10 @@ function blackButtons() {
     //Adds click listener for black tank button
     document.getElementById("blacktank").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (blackPlayer.turn === true && blackPlayer.gold > 5) {
+
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (blackPlayer.turn === true && blackPlayer.gold > 5 && game_state[x][y].color === "black" && !game_state[x][y].unit) {
             //Creates black tank object
             let black = new Tank("black", "tank", spawnTile)
             //Sets image
@@ -534,10 +591,17 @@ function blackButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = black
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,black,black.color))
             //Adds listener for available movement on click and shows selected tile
             player = blackPlayer
             unit = black
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -552,7 +616,9 @@ function blackButtons() {
     //Adds click listener for black mage button
     document.getElementById("blackmage").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (blackPlayer.turn === true && blackPlayer.gold > 5) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (blackPlayer.turn === true && blackPlayer.gold > 5 && game_state[x][y].color === "black" && !game_state[x][y].unit) {
             //Creates black mage object
             let black = new Mage("black", "mage", spawnTile)
             //Sets image
@@ -566,10 +632,17 @@ function blackButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = black
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,black,black.color))
             //Adds listener for available movement on click and shows selected tile
             player = blackPlayer
             unit = black
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -584,7 +657,9 @@ function blackButtons() {
     //Adds click listener for black archer button
     document.getElementById("blackarcher").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (blackPlayer.turn === true && blackPlayer.gold > 7) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (blackPlayer.turn === true && blackPlayer.gold > 7 && game_state[x][y].color === "black" && !game_state[x][y].unit) {
             //Creates black archer object
             let black = new Archer("black", "archer", spawnTile)
             //Sets image
@@ -598,10 +673,17 @@ function blackButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = black
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,black,black.color))
             //Adds listener for available movement on click and shows selected tile
             player = blackPlayer
             unit = black
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -616,7 +698,9 @@ function blackButtons() {
     //Adds click listener for black support button
     document.getElementById("blacksupport").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (blackPlayer.turn === true && blackPlayer.gold > 7) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (blackPlayer.turn === true && blackPlayer.gold > 7 && game_state[x][y].color === "black" && !game_state[x][y].unit) {
             //Creates black support object
             let black = new Support("black", "support", spawnTile)
             //Sets image
@@ -630,10 +714,17 @@ function blackButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = black
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,black,black.color))
             //Adds listener for available movement on click and shows selected tile
             player = blackPlayer
             unit = black
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${black.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -650,7 +741,9 @@ function redButtons() {
     //Adds click listener for red tank button
     document.getElementById("redtank").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (redPlayer.turn === true && redPlayer.gold > 5) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (redPlayer.turn === true && redPlayer.gold > 5 && game_state[x][y].color === "red" && !game_state[x][y].unit) {
             //Creates red tank object
             let red = new Tank("red", "tank", spawnTile)
             //Sets image
@@ -664,10 +757,17 @@ function redButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = red
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,red,red.color))
             //Adds listener for available movement on click and shows selected tile
             player = redPlayer
             unit = red
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -682,7 +782,9 @@ function redButtons() {
     //Adds click listener for red mage button
     document.getElementById("redmage").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (redPlayer.turn === true && redPlayer.gold > 5) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (redPlayer.turn === true && redPlayer.gold > 5 && game_state[x][y].color === "red" && !game_state[x][y].unit) {
             //Creates red mage object
             let red = new Mage("red", "mage", spawnTile)
             //Sets image
@@ -696,10 +798,17 @@ function redButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = red
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,red,red.color))
             //Adds listener for available movement on click and shows selected tile
             player = redPlayer
             unit = red
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -714,7 +823,9 @@ function redButtons() {
     //Adds click listener for red archer button
     document.getElementById("redarcher").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (redPlayer.turn === true && redPlayer.gold > 7) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (redPlayer.turn === true && redPlayer.gold > 7 && game_state[x][y].color === "red" && !game_state[x][y].unit) {
             //Creates red archer object
             let red = new Archer("red", "archer", spawnTile)
             //Sets image
@@ -728,10 +839,17 @@ function redButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = red
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,red,red.color))
             //Adds listener for available movement on click and shows selected tile
             player = redPlayer
             unit = red
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -746,7 +864,9 @@ function redButtons() {
     //Adds click listener for red support button
     document.getElementById("redsupport").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (redPlayer.turn === true && redPlayer.gold > 7) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (redPlayer.turn === true && redPlayer.gold > 7 && game_state[x][y].color === "red" && !game_state[x][y].unit) {
             //Creates red support object
             let red = new Support("red", "support", spawnTile)
             //Sets image
@@ -760,10 +880,17 @@ function redButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = red
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,red,red.color))
             //Adds listener for available movement on click and shows selected tile
             player = redPlayer
             unit = red
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${red.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -780,7 +907,9 @@ function blueButtons() {
     //Adds click listener for blue tank button
     document.getElementById("bluetank").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (bluePlayer.turn === true && bluePlayer.gold > 5) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (bluePlayer.turn === true && bluePlayer.gold > 5 && game_state[x][y].color === "blue" && !game_state[x][y].unit) {
             //Creates blue tank object
             let blue = new Tank("blue", "tank", spawnTile)
             //Sets image
@@ -794,10 +923,17 @@ function blueButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = blue
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,blue,blue.color))
             //Adds listener for available movement on click and shows selected tile
             player = bluePlayer
             unit = blue
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -812,7 +948,9 @@ function blueButtons() {
     //Adds click listener for blue mage button
     document.getElementById("bluemage").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (bluePlayer.turn === true && bluePlayer.gold > 5) {
+        x = parseInt(spawnTile.split("_")[0])
+        y = parseInt(spawnTile.split("_")[1])
+    if (bluePlayer.turn === true && bluePlayer.gold > 5 && game_state[x][y].color === "blue" && !game_state[x][y].unit) {
             //Creates blue mage object
             let blue = new Mage("blue", "mage", spawnTile)
             //Sets image
@@ -826,10 +964,17 @@ function blueButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = blue
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,blue,blue.color))
             //Adds listener for available movement on click and shows selected tile
             player = bluePlayer
             unit = blue
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -844,7 +989,9 @@ function blueButtons() {
     //Adds click listener for blue archer button
     document.getElementById("bluearcher").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (bluePlayer.turn === true && bluePlayer.gold > 7) {
+        x = parseInt(spawnTile.split("_")[0])
+        y = parseInt(spawnTile.split("_")[1])
+    if (bluePlayer.turn === true && bluePlayer.gold > 7 && game_state[x][y].color === "blue" && !game_state[x][y].unit)  {
             //Creates blue archer object
             let blue = new Archer("blue", "archer", spawnTile)
             //Sets image
@@ -858,10 +1005,17 @@ function blueButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = blue
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,blue,blue.color))
             //Adds listener for available movement on click and shows selected tile
             player = bluePlayer
             unit = blue
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -876,7 +1030,9 @@ function blueButtons() {
     //Adds click listener for blue support button
     document.getElementById("bluesupport").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (bluePlayer.turn === true && bluePlayer.gold > 7) {
+        x = parseInt(spawnTile.split("_")[0])
+        y = parseInt(spawnTile.split("_")[1])
+    if (bluePlayer.turn === true && bluePlayer.gold > 7 && game_state[x][y].color === "blue" && !game_state[x][y].unit)  {
             //Creates blue support object
             let blue = new Support("blue", "support", spawnTile)
             //Sets image
@@ -890,10 +1046,17 @@ function blueButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = blue
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,blue,blue.color))
             //Adds listener for available movement on click and shows selected tile
             player = bluePlayer
             unit = blue
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${blue.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -910,7 +1073,9 @@ function whiteButtons() {
     //Adds click listener for white tank button
     document.getElementById("whitetank").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (whitePlayer.turn === true && whitePlayer.gold > 5) {
+            x = parseInt(spawnTile.split("_")[0])
+            y = parseInt(spawnTile.split("_")[1])
+        if (whitePlayer.turn === true && whitePlayer.gold > 5 && game_state[x][y].color === "white" && !game_state[x][y].unit) {
             //Creates white tank object
             let white = new Tank("white", "tank", spawnTile)
             //Sets image
@@ -924,10 +1089,17 @@ function whiteButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = white
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,white,white.color))
             //Adds listener for available movement on click and shows selected tile
             player = whitePlayer
             unit = white
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -942,7 +1114,9 @@ function whiteButtons() {
     //Adds click listener for white mage button
     document.getElementById("whitemage").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (whitePlayer.turn === true && whitePlayer.gold > 5) {
+        x = parseInt(spawnTile.split("_")[0])
+        y = parseInt(spawnTile.split("_")[1])
+    if (whitePlayer.turn === true && whitePlayer.gold > 5 && game_state[x][y].color === "white" && !game_state[x][y].unit) {
             //Creates white mage object
             let white = new Mage("white", "mage", spawnTile)
             //Sets image
@@ -956,10 +1130,17 @@ function whiteButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = white
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,white,white.color))
             //Adds listener for available movement on click and shows selected tile
             player = whitePlayer
             unit = white
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -974,7 +1155,9 @@ function whiteButtons() {
     //Adds click listener for white archer button
     document.getElementById("whitearcher").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (whitePlayer.turn === true && whitePlayer.gold > 7) {
+        x = parseInt(spawnTile.split("_")[0])
+        y = parseInt(spawnTile.split("_")[1])
+    if (whitePlayer.turn === true && whitePlayer.gold > 7 && game_state[x][y].color === "white" && !game_state[x][y].unit) {
             //Creates white archer object
             let white = new Archer("white", "archer", spawnTile)
             //Sets image
@@ -988,10 +1171,17 @@ function whiteButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = white
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,white,white.color))
             //Adds listener for available movement on click and shows selected tile
             player = whitePlayer
             unit = white
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -1006,7 +1196,9 @@ function whiteButtons() {
     //Adds click listener for white support button
     document.getElementById("whitesupport").addEventListener("click", function () {
         //Checks if it is player's turn and player has enough gold for unit purchase
-        if (whitePlayer.turn === true && whitePlayer.gold > 7) {
+        x = parseInt(spawnTile.split("_")[0])
+        y = parseInt(spawnTile.split("_")[1])
+    if (whitePlayer.turn === true && whitePlayer.gold > 7 && game_state[x][y].color === "white" && !game_state[x][y].unit) {
             //Creates white support object
             let white = new Support("white", "support", spawnTile)
             //Sets image
@@ -1020,10 +1212,17 @@ function whiteButtons() {
             //Adds unit object to the position on the matrix
             x = parseInt(spawnTile.split("_")[0])
             y = parseInt(spawnTile.split("_")[1])
-            game_state[x][y].unit = white
+            game_state[x].splice(y,1,new Tile (game_state[x][y].land,white,white.color))
             //Adds listener for available movement on click and shows selected tile
             player = whitePlayer
             unit = white
+            for (y = 12; y > -1; y--) {
+                for (x = 0; x < 13; x++) {
+                    if(game_state[x][y].unit){
+                        document.getElementById(`${x}_${y}`).removeEventListener("click", unitListener)
+                    }
+                }
+            }
             document.getElementById(`${white.position}`).addEventListener("click", unitListener)
             //Resets selected tile value and updates gold counter
             selectedTile
@@ -1042,6 +1241,10 @@ function setButtons() {
     redButtons()
     blueButtons()
     whiteButtons()
+
+    document.querySelector('.endTurn').addEventListener('click',function(){
+        turnPlayer.endTurn()
+    })
 }
 
 //Adds a player for each color
@@ -1066,3 +1269,4 @@ addPlayers()
 buildBoard()
 buildCastles()
 setButtons()
+blackPlayer.startTurn()
