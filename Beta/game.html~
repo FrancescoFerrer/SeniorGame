@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Victory</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body style="background-color:gray;">
+
+    <div class="goldDisplay">
+            <div class="blackGold"
+            id="blackGold">Black Gold</div>
+            <div class="redGold"
+            id="redGold">Red Gold</div>
+            <div class="blueGold"
+            id="blueGold">Blue Gold</div>
+            <div class="whiteGold"
+            id="whiteGold">White Gold</div>
+    </div>
+    <div class="board"></div>
+
+    <div class="buttonnav" style="margin: auto">
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn black">Black</button>
+            <div class="dropdown-content">
+                <button class="black tank btn" style="margin:auto" id="blacktank">Tank</button>
+                <button class="black mage btn" style="margin:auto" id="blackmage">Mage</button>
+                <button class="black archer btn" style="margin:auto" id="blackarcher">Archer</button>
+                <button class="black support btn" style="margin:auto" id="blacksupport">Support</button>
+            </div>
+        </div>
+
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn red">Red</button>
+            <div class="dropdown-content">
+                <button class="red tank btn" style="margin:auto" id="redtank">Tank</button>
+                <button class="red mage btn" style="margin:auto" id="redmage">Mage</button>
+                <button class="red archer btn" style="margin:auto" id="redarcher">Archer</button>
+                <button class="red support btn" style="margin:auto" id="redsupport">Support</button>
+            </div>
+        </div>
+
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn blue">Blue</button>
+            <div class="dropdown-content">
+                <button class="blue tank btn" style="margin:auto" id="bluetank">Tank</button>
+                <button class="blue mage btn" style="margin:auto" id="bluemage">Mage</button>
+                <button class="blue archer btn" style="margin:auto" id="bluearcher">Archer</button>
+                <button class="blue support btn" style="margin:auto" id="bluesupport">Support</button>
+            </div>
+        </div>
+
+        <div class="dropdown" style="margin:auto">
+            <button class="dropbtn btn white">White</button>
+            <div class="dropdown-content">
+                <button class="white tank btn" style="margin:auto" id="whitetank">Tank</button>
+                <button class="white mage btn" style="margin:auto" id="whitemage">Mage</button>
+                <button class="white archer btn" style="margin:auto" id="whitearcher">Archer</button>
+                <button class="white support btn" style="margin:auto" id="whitesupport">Support</button>
+            </div>
+        </div>
+    </div>
+    <div class="tileDisplay">
+    <p>Spawn Tile:</p><div class="spawnTile"
+        style=" width:100px; height: 30px; margin:auto; text-align:center; padding-top: 0px; font-size:large; border: solid black 2px;"
+        id="spawnTile">Spawn Tile</div>
+    <p>Selected Tile:</p><div class="selectedTile"
+        style=" width:100px; height: 30px; margin:auto; text-align:center; padding-top: 0px; font-size:large; border: solid black 2px;"
+        id="selectedTile">Selected Tile</div>
+    <script src="game.js"></script>
+    </div>
+
+    	 <audio id = "myAudio"><source src="http://dakkacoder.com/audio.mp3" type="audio/wav">  </audio>
+	 <!--remember to replace buttons with icons -->
+	 <!--make the div surrounding the buttons what I use flex on and make each button in a div and remember to make sure that I don't have to scroll down for clicking on/off the music -->
+	 <div class = "">
+    <button class = "soundButton" onclick="playAudio()" type="button">Play Audio</button>
+    <button class = "soundButton" onclick="pauseAudio()" type="button">Pause Audio</button>
+	 </div>
+	<script>
+		var music = document.getElementById('myAudio');
+		music.addEventListener('click', playAudio());
+
+		function playAudio() {
+			var audio = new Audio("http://dakkacoder.com/audio.mp3");
+			music.play();
+		}
+
+		function pauseAudio() {
+			var audio = new Audio("http://dakkacoder.com/audio.mp3");
+			music.pause();
+		}
+	</script>
+
+    
+
+   
+</body>
+
+</html>
+</body>
+
+</html>

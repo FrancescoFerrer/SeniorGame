@@ -1,0 +1,328 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.board {
+    max-width: 528px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    border: solid 4px black;
+}
+
+.tile {
+    background: rgb(23, 190, 32);
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.tile:hover{
+    border-color:white;
+}
+
+.farm {
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('farms/Farm-Basic.png');
+    background-size: cover;
+}
+
+.farm:hover{
+    border-color:white;
+}
+
+.megafarm {
+    border: solid black 1px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('farms/Farm-Mega.png');
+    background-size: cover;
+}
+
+.megafarm:hover{
+    border-color:white;
+}
+
+.whiteCastle{
+    background-image: url('Castles/White_Castle.png');
+    background-size: cover;
+}
+
+.redCastle{
+    background-image: url('Castles/Red_Castle.png');
+    background-size: cover;
+}
+
+.blueCastle{
+    background-image: url('Castles/Blue_Castle.png');
+    background-size: cover;
+}
+
+.blackCastle{
+    background-image: url('Castles/Black_Castle.png');
+    background-size: cover;
+}
+
+.btn {
+    border-radius:5px;
+    border: none;
+    background-color: gainsboro;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    width: 100px;
+    margin:auto;
+    font-weight:500;
+}
+
+.buttonnav {
+    max-width: 520px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    padding-top: .5px;
+}
+
+
+.container {
+    position: absolute;
+    bottom: 540px;
+}
+
+.goldDisplay {
+	/*this is what's going keeping the divs together*/
+    max-width: 520px;
+    height:40px;
+    display: flex;
+    /*this keeps goldDisplay from shifting to the left*/
+    margin: auto;
+    position: absolute;
+    padding-right: 25px; 
+    
+    /*cant use justify content because goldDisplay is the div we're working, want to move in the body div and move just this content to the side*/
+    /*justify-content: flex-start;*/
+    /*wrap is default, no need to have it*/
+    /*flex-wrap: wrap;*/
+}
+
+.blackGold {
+    width: 100px;
+    height: 30px;
+    margin: 10px auto;
+    text-align: center;
+    padding-top: 0px;
+    font-size: large;
+    border: solid black 2px;
+    color: gold;
+    
+}
+
+.redGold{
+    width: 100px;
+    height: 30px;
+    margin: 10px auto;
+    text-align: center;
+    padding-top: 0px;
+    font-size: large;
+    border: solid red 2px;
+    color: gold;
+}
+
+.blueGold {
+    width: 100px;
+    height: 30px;
+    margin: 10px auto;
+    text-align: center;
+    padding-top: 0px;
+    font-size: large;
+    border: solid blue 2px;
+    color: gold;
+}
+
+.whiteGold {
+    width: 100px;
+    height: 30px;
+    margin: 10px auto;
+    text-align: center;
+    padding-top: 0px;
+    font-size: large;
+    border: solid white 2px;
+    color: gold;
+}
+
+.tileDisplay {
+    max-width: 520px;
+    height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+
+.soundButton {
+ width:100px; 
+ height: 50px;
+ margin:auto; 
+ text-align:center; 
+ padding-top: 0px; 
+ font-size:large; 
+ border: solid black 2px;
+}
+
+.play {}
+
+.pause {}
+
+/* Black unit buttons */
+.black {
+    color: black;
+    border:solid .5px black;
+}
+
+.black:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Blue unit buttons */
+.blue {
+    color: dodgerblue;
+    border:solid .5px black;
+}
+
+.blue:hover {
+    background: #2196F3;
+    color: white;
+}
+
+/* White unit buttons */
+.white {
+    color: white;
+    border:solid .5px black;
+}
+
+.white:hover {
+    background: white;
+    color: black;
+}
+
+/* Red unit buttons */
+.red {
+    color: red;
+    border:solid .5px black;
+}
+
+.red:hover {
+    background: #f44336;
+    color: white;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.blue-tank{
+    content:url('Units/Blue-Tank.png')
+}
+
+.blue-mage{
+    content:url('Units/Blue-Mage.png')
+}
+
+.blue-archer{
+    content:url('Units/Blue-Archer.png')
+}
+
+.blue-support{
+    content:url('Units/Blue-Support.png')
+}
+
+.red-tank{
+    content:url('Units/Red-Tank.png')
+}
+
+.red-mage{
+    content:url('Units/Red-Mage.png')
+}
+
+.red-archer{
+    content:url('Units/Red-Archer.png')
+}
+
+.red-support{
+    content:url('Units/Red-Support.png')
+}
+
+.white-tank{
+    content:url('Units/White-Tank.png')
+}
+
+.white-mage{
+    content:url('Units/White-Mage.png')
+}
+
+.white-archer{
+    content:url('Units/White-Archer.png')
+}
+
+.white-support{
+    content:url('Units/White-Support.png')
+}
+
+.black-tank{
+    content:url('Units/Black-Tank.png')
+}
+
+.black-mage{
+    content:url('Units/Black-Mage.png')
+}
+
+.black-archer{
+    content:url('Units/Black-Archer.png')
+}
+
+.black-support{
+    content:url('Units/Black-Support.png')
+}
+
+.canMoveTo{
+    background-color: blue;
+}
+
+.canAttack{
+    background-color: red;
+}
+
+.selected{
+    border-color: yellow;
+}
+
